@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+
+	<Type Name="CG::FName">
+		<DisplayString>{((CG::FNameEntry*)(((*CG::FName::GNames).Allocator.Blocks[(ComparisonIndex >> 16)]) + ((unsigned short)ComparisonIndex) * 2))->AnsiName, [((CG::FNameEntry*)(((*CG::FName::GNames).Allocator.Blocks[(ComparisonIndex >> 16)]) + ((unsigned short)ComparisonIndex) * 2))->Header.Len]s}</DisplayString>
+	</Type>
+
+	<!-- TArray visualizer -->
+	<Type Name="CG::TArray&lt;*&gt;">
+		<DisplayString Condition="_count == 0">Empty</DisplayString>
+		<DisplayString Condition="_count &lt; 0">Invalid</DisplayString>
+		<DisplayString Condition="_max &lt; _count">Invalid</DisplayString>
+		<DisplayString Condition="_max &gt;= _count">Num={_count}</DisplayString>
+		<Expand>
+			<ArrayItems Condition="_count &lt;= _max">
+				<Size>_count</Size>
+				<ValuePointer>_data</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
+
+	<!-- FString visualizer -->
+	<Type Name="CG::FString">
+		<DisplayString Condition="_count == 0">Empty</DisplayString>
+		<DisplayString Condition="_count &lt; 0">Invalid</DisplayString>
+		<DisplayString Condition="_max &lt; _count">Invalid</DisplayString>
+		<DisplayString Condition="_max &gt;= _count">{_data,su}</DisplayString>
+		<StringView Condition="_max &gt;= _count">_data,su</StringView>
+	</Type>
+
+</AutoVisualizer>
